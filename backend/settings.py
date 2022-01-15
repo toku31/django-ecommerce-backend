@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -131,18 +132,20 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proshop',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'proshop',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
 
 # print(os.environ['DB_PASS'])
+
+DATABASES = {'default': dj_database_url.config(default='postgres://postgres:postgres@localhost/proshop')}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -195,3 +198,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 if os.getcwd() == '/app':
     DEBUG = False
+
+# whitenoise settings
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
